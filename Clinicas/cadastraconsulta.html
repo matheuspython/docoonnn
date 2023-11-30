@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="cadastroclin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Clínica | DocON</title>
+</head>
+<body>
+    <div class="box">
+
+        <form id="consultaForm">
+            <label for="medico">Médico:</label>
+            <input type="text" id="medico" name="medico" required>
+            
+            <label for="valor">Valor:</label>
+            <input type="number" id="valor" name="valor" required>
+            
+            <label for="data">Data:</label>
+            <input type="date" id="data" name="data" required>
+            
+            <label for="codigosala">Código da Sala:</label>
+            <input type="text" id="codigosala" name="codigosala" required>
+            
+            <label for="especialidade">Especialidade:</label>
+            <input type="text" id="especialidade" name="especialidade" required>
+            
+            <button  class="btn" type="button" onclick="criarConsulta()">Criar Consulta</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const btn = document.querySelector(".btn")
+    btn.addEventListener('click',async e =>{
+            const medico = document.getElementById('medico').value;
+            const valor = document.getElementById('valor').value;
+            const data = document.getElementById('data').value;
+            const codigosala = document.getElementById('codigosala').value;
+            const especialidade = document.getElementById('especialidade').value;
+  e.preventDefault()
+  const req = await axios.post("http://localhost:4000/createNewConsulta",{
+    medico,
+    valor,
+    data,
+    codigosala,
+    especialidade
+  })
+  const res = req.data
+  if(res.loginExiste){
+    window.location.href = "./landingpage.html";
+    return
+  }
+  alert('erro ao logar')
+})
+  
+</script>
+</body>
+</html>
